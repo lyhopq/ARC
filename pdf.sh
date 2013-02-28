@@ -6,6 +6,6 @@ pwd=`pwd`
 cd build/latex
 tex=`ls | find *.tex`
 xelatex $tex
-pdf=`ls | find Python*.pdf`
+pdf=`ls | find TheArt*.pdf`
 evince $pdf &
 cd "$pwd"

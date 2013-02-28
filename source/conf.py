@@ -93,6 +93,8 @@ pygments_style = 'sphinx'
 #pygments_style = 'native'
 #pygments_style = 'friendly'
 
+highlight_language = 'c++'
+
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
 
