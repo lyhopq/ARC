@@ -1,6 +1,3 @@
-cd ~/Ubuntu\ One/Books/PDA/
-ipython notebook --pylab inline > /dev/null 2>&1 &
-nautilus . 
-evince Python\ for\ Data\ Analysis.pdf &
+evince "The Art of Readable Code.pdf" > /dev/null 2>&1 &
 vim source/chp$1.rst
 
