@@ -13,6 +13,7 @@ Contents:
    :numbered:
 
    chp1.rst
+   part1.rst
 
 
 Indices and tables
