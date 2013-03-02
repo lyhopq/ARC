@@ -80,4 +80,32 @@
 .. figure:: _static/2-1.*
    :align: center
 
+不要害怕使用专业词典或向朋友询问一个更好名字的的建议。英语是一个丰富的语言，并有很多词从中选择。
 
+这里有一些关于一个词，以及它的一些“富有色彩”的版本，可能会使用你的情形：
+
+.. list-table::
+   :widths: 10, 30
+   :header-rows: 1
+
+   * - Word
+     - Alternatives
+   * - send
+     - deliver, dispatch, announce, distribute, route
+   * - find
+     - search, extract, locate, recover
+   * - start
+     - launch, create, begin, open
+   * - make
+     - create, set up, build, generate, compose, add, new
+
+但是，不要得意忘形。在PHP中，有一个函数 `explode()` 一个字符窜。这是一个富有色彩的名字，它描绘了一个把一些东西打成碎片的好的图案，但是，它和 `split()` 有多大的区别呢？（这两个函数不不同的，但是，基于它们的名字很难猜测出它们的不同。）
+
+.. ttip::
+
+   **KEY IDEA**
+   **是明确的和精确的比是可爱的更好。**
+
+
+避免像 `tmp` 和 `retval` 这样通用的名字
+------------------------------------------
