@@ -109,3 +109,44 @@
 
 避免像 `tmp` 和 `retval` 这样通用的名字
 ------------------------------------------
+
+像 `tmp` ，`retval` 和 `foo` 这样的名字，通常是为了逃避，意思是“我想不出一个名字” **选择一个名字描述实体的价值和目的** ，而不是使用像这样的一个空名字。
+
+例如，这是一个 `JavaScript` 函数，使用了 `retval` ：
+
+  .. code-block:: javascript
+
+    var euclidean_norm = function (v) {
+        var retval = 0.0;
+        for (var i = 0; i < v.length; i += 1)
+            retval += v[i] * v[i];
+        return Math.sqrt(retval);
+    };
+
+当你想不出一个更好的名字给你的返回值，使用 `retval` 是很有吸引力的。但 `retval` 除了表示“我是一个返回值”（这总是明显的）之外，并不能包含更多的信息
+
+一个更好的名字应该可以描述变量或它所含的值的目的。在这种情况，变量是序列v的累加值。因此，一个更好的名字是 `sum_squares` 。这可以显示变量的目的，并且可能会抓到一个bug。
+
+例如，假想如果循环的内部发生意外：
+
+  .. code-block:: javascript
+
+    retval += v[i];
+
+这一bug可以很明显，如果名字是 `sun_squares` ：
+
+  .. code-block:: javascript
+
+    sum_squares += v[i]; // 我们在哪个序列求和？Bug！
+
+.. twaring::
+
+   **ADVICE**
+   **retval这个名字并不能包装更多信息。代之，使用一个可以描述变量的值的名字**
+
+然而，在一些情况下，通用的名字确实可以承载含义。让我们开看看，什么时候使用它们是有意义的。
+
+tmp
++++++
+
+
