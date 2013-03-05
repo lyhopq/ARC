@@ -207,11 +207,11 @@ tmp
 
   ::
 
-  for (int i = 0; i < clubs.size(); i++)
-    for (int j = 0; j < clubs[i].members.size(); j++)
-        for (int k = 0; k < users.size(); k++)
-            if (clubs[i].members[k] == users[j])
-                cout << "user[" << j << "] is in club[" << i << "]" << endl;
+    for (int i = 0; i < clubs.size(); i++)
+      for (int j = 0; j < clubs[i].members.size(); j++)
+          for (int k = 0; k < users.size(); k++)
+              if (clubs[i].members[k] == users[j])
+                  cout << "user[" << j << "] is in club[" << i << "]" << endl;
 
 在 `if` 语句中， `menbers[]` 和 `users[]` 被使用了错误的索引。像这样的bug难以定位，因为，隔开来看，这行代码似乎是好的：
 
@@ -236,7 +236,7 @@ tmp
 
 正如你所见到的，在一些情况下，通用名字是很有用的。
 
-.. ttwarning::
+.. twarning::
 
    **ADVICE**
 
@@ -252,7 +252,7 @@ tmp
 \
 
 .. figure:: _static/2-2.*
-   :algin: certer
+   :align: center
 
 
 当命名一个变量，函数，或其它的元素时，要具体的而不要抽象的描述它。
@@ -301,8 +301,8 @@ tmp
 你可以看一下 `--run_locally` 这个名字是用来干什么的，但它有一些问题：
 
 * 一个新成员不知道它是用来干什么的。他可能在本地运行的时候使用它（假设），但他不知道为什么需要这样做。
- * 偶尔，我们需要打印调试信息，但程序运行在远端。给远端运行的程序传递 `--run_locally` 看起来很滑稽，并会引起混淆。
- * 有时，我们想要在本地运行性能测试，且不想记录降低运行速度，因此我们不能使用 `--run_locally` 。
+* 偶尔，我们需要打印调试信息，但程序运行在远端。给远端运行的程序传递 `--run_locally` 看起来很滑稽，并会引起混淆。
+* 有时，我们想要在本地运行性能测试，且不想记录降低运行速度，因此我们不能使用 `--run_locally` 。
 
 
 问题是， `--run_locally` 通常用于它的名字所表示的情况下。作为替代，像 `--extra_logging` 这样的标志名应该是更直接和清楚的。
@@ -331,6 +331,70 @@ tmp
 带有单位的值
 ++++++++++++++
 
+如果你的变量是一个度量（例如时间的总额或字节数），把单位编码到变量名是有帮助的。
 
+例如，这是一个 `JavaScript` 的代码，测量一个网页的加载时间： 
 
+  .. code-block:: javascript
+
+    var start = (new Date()).getTime(); // top of the page
+    ...
+    var elapsed = (new Date()).getTime() - start; // bottom of the page
+    document.writeln("Load time was: " + elapsed + " seconds");
+
+这一代码并没有什么明显的错误，但它不能工作，因为 `getTime()` 返回毫秒，而不是秒。
+
+通过追加 `_ms` 到变量，我们可以使得一切变得清晰： 
+
+  .. code-block:: javascript
+
+    var start_ms = (new Date()).getTime(); // top of the page
+    ...
+    var elapsed_ms = (new Date()).getTime() - start_ms; // bottom of the page
+    document.writeln("Load time was: " + elapsed_ms / 1000 + " seconds");
+
+除了时间之外，在程序中会出现大量其它的单位。下面是一个函数表格，其参数没有单位，且提供了一个包含单位的更好的版本：
+
++------------------------------------+---------------------------------+
+| 函数参数                           | 重命名参数来编码单位            |
++====================================+=================================+
+| Start(int **delay** )              | delay -> **delay_secs**         |
++------------------------------------+---------------------------------+
+| CreateCache(int **size** )         | size -> **size_mb**             |
++------------------------------------+---------------------------------+
+| ThrottleDownload(float **limit** ) | limit -> **max_kbps**           |
++------------------------------------+---------------------------------+
+| Rotate(float **angle** )           | angle -> **degress_cw**         |
++------------------------------------+---------------------------------+
+
+编码其它的属性
+++++++++++++++++
+
+附加信息到名字的技术限制于带有单位的值。无论何时，变量有一些危险或奇怪，都可以使用这一点。
+
+例如，许多安全漏洞来自于没有意识到你的程序接受到的数据尚未处于安全状态。对于这一点，你应该想使用像 `untrustedUrl` 或 `unsafeMessageBody` 这样的名字。在调用函数来清除不安全的输入后，结果变量可能是 `trustedUrl` 或 `safeMessageBody` 。
+
+下面的表格显示了额外的示例，什么时候应该把额外的信息编码到名字： 
+
+.. list-table::
+   :widths: 30, 10, 10
+   :header-rows: 1
+
+   * - 情形
+     - 变量名
+     - 更好的名字
+   * - 一个明文的密码，在进一步处理之前应该加密
+     - password
+     - **plaintext_**\ password
+   * - 用户提供的评论在显示前需要转义
+     - comment
+     - **unescaped_**\ comment
+   * - html的字节应该被转换为UTF-8
+     - html
+     - html\ **_utf8**
+   * - 输入的数据已经被“url 编码”
+     - data
+     - data\ **_urlenc**
+
+你不应该在你的程序中对 *每个* 变量使用像 `unescaped_` 或 `_utf8` 这样的属性。
 
