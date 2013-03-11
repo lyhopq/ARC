@@ -429,7 +429,7 @@ tmp
 
 当包装一个好的名字时，有一个暗含的约束：名字不能太长。没有人愿意使用这样的标识符： ::
 
-newNavigationControllerWrappingViewControllerForDataSourceOfClass
+    newNavigationControllerWrappingViewControllerForDataSourceOfClass
 
 名字越长就越难记忆，并它会占据更多的屏幕空间，可能导致额外的换行。
 
@@ -444,11 +444,11 @@ newNavigationControllerWrappingViewControllerForDataSourceOfClass
 
   ::
 
-  if (debug) {
-      map<string,int> m;
-      LookUpNamesNumbers(&m);
-      Print(m);
-  }
+    if (debug) {
+        map<string,int> m;
+        LookUpNamesNumbers(&m);
+        Print(m);
+    }
 
 即使 `m` 并没有包装任何信息，也不是一个问题，因为读者已经有了她需要理解代码的所有信息。
 
@@ -525,4 +525,52 @@ newNavigationControllerWrappingViewControllerForDataSourceOfClass
 
 在这个例子里的大多数格式是非常通用的——对类名使用 **驼峰法** 对变量使用 **lower_separated** 。但其它的一些约定可能会使你感到惊讶。
 
-例如，
+例如，常量值使用 **kConstantName** 代替 **CONSTANT_NAMAE** 。这种风格能很好的区分 **#define** 宏的形式，它依照约定是 **MACR)_NAME** 。
+
+类成员变量像普通变量一样，但必须用下划线结束，如 `0ffset_` 。起初，这一约定可能看起来比较奇怪，但它能很便利的把成员变量和其它变量区分开。例如，你在浏览一个大的方法的代码，看见了这一行：
+
+  ::
+
+    stats.clear()a;
+
+你通常不知道， **stats** 属于该类吗？ 这一代码是否改变类的内部状态。如果使用 **member_** 这一约定，你可以很快的推断，不， **stats** 必定是一个局部变量，否则它会被命名为 **stats_** 。
+
+其它格式化约定
++++++++++++++++++
+取决与你的项目或语言的背景，可能有其它的格式化约定，你可是使用来使名字包含更多的信息。
+
+例如，在 `JavaScript: The Good Parts (Douglas Crockford, O’Reilly, 2008` 一书中，作者建议“构造器”（旨在被 **new** 调用的函数）应该首字母大写，且其它普通函数应该首字母小写： 
+
+  ::
+
+    var x = new DatePicker(); // DatePicker() is a "constructor" function
+    var y = pageHeight();     // pageHeight() is an ordinary function
+    
+这有另一个JavaScript的例子：当调用jQuery库函数（它的名字是一个但字母 `$` ）时，一个有用的约定是给返回值也加上 `$` 的前缀：
+
+  ::
+
+    var $all_images = $("img"); // $all_images is a jQuery object
+    var height = 250;           // height is not
+
+在代码的各处，将会是清楚的，`$all_images` 是一个jQuery返回值对象。
+
+这一次是一个关于 `HTML／CSS` 的好的例子：当给HTML标签一个id或class属性时，在值中下划线和破折号都是有效的字符。一个合适的约定是使用下划线来分割ID标签的单词，使用破折号分割class标签的单词：
+
+  .. code-block:: html
+
+    <div id="middle_column" class="main-content"> ...
+
+你决定是否使用这些约定取决于你和你的团队。但不论市容何种，在你的项目中应该保持一致。
+
+
+小结
+------
+
+本章的主题是： **包装信息到你的名字** 。通过这一点，我们的意思是，读者可以仅通过阅读名字就可以提取许多信息。
+
+下面是我们讨论过的一些具体的提示：
+
+ * **使用特定的词——** 例如，替代 `Get` ，更具上下文环境，使用像 `Fetch` 或 `Download` 这样的次会更好。
+
+
