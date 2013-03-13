@@ -14,6 +14,7 @@ Contents:
 
    chp1.rst
    chp2.rst
+   chp3.rst
 
 
 Indices and tables
